@@ -1,8 +1,13 @@
+<#if (p.bizPackage)?? && p.bizPackage !="">
+<#assign biz=".${p.bizPackage}"/>
+<#else>
+<#assign biz=""/>
+</#if>
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="${p.basePackage}.dao.${p.bizPackage}.${p.className}Dao" > 
+<mapper namespace="${p.basePackage}.dao${biz}.${p.className}Dao" >
 	<!-- Result Map-->
-   <resultMap id="BaseResultMap" type="${p.basePackage}.entity.${p.bizPackage}.${p.className}">
+   <resultMap id="BaseResultMap" type="${p.basePackage}.entity${biz}.${p.className}">
 	<#list p.gci_columns?sort_by("ordinal_position") as u>
 		<#if u.column_key=="PRI">
 		  <id column="${u.clumn_name}" property="${u.javaColumnFileNameCode}" jdbcType="${u.column_javaMybatintype?upper_case}" />
@@ -26,7 +31,7 @@
    -->
 
   <!-- 分页数据 -->
-  <select id="findPageListBySQL" resultMap="BaseResultMap" parameterType="${p.basePackage}.query.${p.bizPackage}.${p.className}Query">
+  <select id="findPageListBySQL" resultMap="BaseResultMap" parameterType="${p.basePackage}.query${biz}.${p.className}Query">
   		select
   	    <include refid="Base_Column_List" />
   	     from ${p.table_name} where 1=1
@@ -93,19 +98,19 @@
   </delete>
   
   <!-- 保存对象 -->    
-   <insert id="insert" parameterType="${p.basePackage}.entity.${p.bizPackage}.${p.className}">
+   <insert id="insert" parameterType="${p.basePackage}.entity${biz}.${p.className}">
     insert into ${p.table_name} (<#list p.gci_columns?sort_by("ordinal_position") as u><#if u.column_key=="PRI">${p.pk_name}<#else>,${u.clumn_name}</#if></#list>)
     values ( <#list p.gci_columns?sort_by("ordinal_position") as u><#if u.column_key=="PRI">#${"{${p.pk_name}"},jdbcType=${p.pk_obj_type?upper_case}}<#else>,#${"{"+u.javaColumnFileNameCode},jdbcType=${u.column_javaMybatintype?upper_case+"}"}</#if></#list>)
   </insert>
   
   <!-- 保存对象并返回主键id的值  keyProperty="id" 返回的值-->    
-   <insert id="insertReturnIdVlues" useGeneratedKeys="true" keyProperty="${p.pk_name}" parameterType="${p.basePackage}.entity.${p.bizPackage}.${p.className}">
+   <insert id="insertReturnIdVlues" useGeneratedKeys="true" keyProperty="${p.pk_name}" parameterType="${p.basePackage}.entity${biz}.${p.className}">
     insert into ${p.table_name} (<#list p.gci_columns?sort_by("ordinal_position") as u><#if u.column_key=="PRI">${p.pk_name}<#else>,${u.clumn_name}</#if></#list>)
     values ( <#list p.gci_columns?sort_by("ordinal_position") as u><#if u.column_key=="PRI">#${"{${p.pk_name}"},jdbcType=${p.pk_obj_type?upper_case}}<#else>,#${"{"+u.javaColumnFileNameCode},jdbcType=${u.column_javaMybatintype?upper_case+"}"}</#if></#list>)
   </insert>
   
   <!-- 根据对象字段值保存 -->    
-   <insert id="insertSelective" parameterType="${p.basePackage}.entity.${p.bizPackage}.${p.className}" >
+   <insert id="insertSelective" parameterType="${p.basePackage}.entity${biz}.${p.className}" >
     insert into ${p.table_name}
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <#list p.gci_columns?sort_by("ordinal_position") as u>
@@ -124,7 +129,7 @@
   </insert>
    
    <!-- 根据对象字段值更新 -->    
-   <update id="updateByPrimaryKeySelective" parameterType="${p.basePackage}.entity.${p.bizPackage}.${p.className}" >
+   <update id="updateByPrimaryKeySelective" parameterType="${p.basePackage}.entity${biz}.${p.className}" >
     update ${p.table_name}
     <set>
       <#list p.gci_columns?sort_by("ordinal_position") as u>
@@ -146,7 +151,7 @@
   </update>
   
   <!-- 根据对象主键更新 -->    
-  <update id="updateByPrimaryKey" parameterType="${p.basePackage}.entity.${p.bizPackage}.${p.className}" >
+  <update id="updateByPrimaryKey" parameterType="${p.basePackage}.entity${biz}.${p.className}" >
     update ${p.table_name}
     set 
   <#list p.gci_columns?sort_by("ordinal_position") as u>
@@ -160,7 +165,7 @@
   </update>
   
   <!-- 更新对象返回更新影响条数 -->
-  <update id="updateEntryByPrimaryKey" parameterType="${p.basePackage}.entity.${p.bizPackage}.${p.className}">
+  <update id="updateEntryByPrimaryKey" parameterType="${p.basePackage}.entity${biz}.${p.className}">
   	update ${p.table_name}
     set 
   <#list p.gci_columns?sort_by("ordinal_position") as u>

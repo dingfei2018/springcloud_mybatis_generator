@@ -73,6 +73,9 @@ public class CodeCfg {
 	}
 	
 	public String getBizPackage() {
+		if (bizPackage==null){
+			return "";
+		}
 		return bizPackage;
 	}
 	public void setBizPackage(String bizPackage) {

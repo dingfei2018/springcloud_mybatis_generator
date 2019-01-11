@@ -1,8 +1,13 @@
-package ${p.basePackage}.dao.${p.bizPackage};
+<#if (p.bizPackage)?? && p.bizPackage !="">
+    <#assign biz=".${p.bizPackage}"/>
+<#else>
+    <#assign biz=""/>
+</#if>
+package ${p.basePackage}.dao${biz};
 
-import ${p.basePackage}.entity.${p.bizPackage}.${p.className};
+import ${p.basePackage}.entity${biz}.${p.className};
 import BaseMybatisDao;
-import ${p.basePackage}.query.${p.bizPackage}.${p.className}Query;
+import ${p.basePackage}.query${biz}.${p.className}Query;
 import PageInfo;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;

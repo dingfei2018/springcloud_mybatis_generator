@@ -1,3 +1,8 @@
+<#if (p.bizPackage)?? && p.bizPackage !="">
+	<#assign biz=".${p.bizPackage}"/>
+<#else>
+	<#assign biz=""/>
+</#if>
 package ${p.basePackage}.web;
 
 import java.util.List;
@@ -11,8 +16,8 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ${p.basePackage}.dto.${p.className}Dto;
-import ${p.basePackage}.entity.${p.bizPackage}.${p.className};
-import ${p.basePackage}.service.${p.bizPackage}.${p.className}Service;
+import ${p.basePackage}.entity${biz}.${p.className};
+import ${p.basePackage}.service${biz}.${p.className}Service;
 import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -26,8 +31,8 @@ import io.swagger.annotations.ApiOperation;
  * 时间:${.now}</br>
  */
 @RestController
-@RequestMapping("/${p.bizPackage}/${p.entityPackage}/v1")
-@Api(value = "/${p.bizPackage}/${p.entityPackage}/v1", tags = "${p.code_name}")
+@RequestMapping("/${biz}/${p.entityPackage}/v1")
+@Api(value = "/${biz}/${p.entityPackage}/v1", tags = "${p.code_name}")
 public class ${p.className}RestApiController extends BaseMybatisController{
 	
 	private final static Logger log= Logger.getLogger(${p.className}RestApiController.class);

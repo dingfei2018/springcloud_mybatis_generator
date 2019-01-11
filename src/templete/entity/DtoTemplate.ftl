@@ -1,6 +1,7 @@
 package ${p.basePackage}.dto;
 import java.util.Date;
 import java.math.BigDecimal;
+import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 /**
  * 
@@ -9,6 +10,7 @@ import org.springframework.format.annotation.DateTimeFormat;
  * 作者：dingfei</br>
  * 时间:${.now}</br>
  */
+@Data
 public class ${p.className}Dto implements java.io.Serializable{
 	private static final long serialVersionUID = 1L;
 	<#list p.gci_columns as u>
@@ -23,18 +25,7 @@ public class ${p.className}Dto implements java.io.Serializable{
  	</#if>
    	private ${u.column_javatype} ${u.javaColumnFileNameCode};
 </#list>
- 
- <#list p.gci_columns as u>
-   	public void set${u.javaColumnGetSetFileNameCode}(${u.column_javatype} ${u.javaColumnFileNameCode}){
-   		this.${u.javaColumnFileNameCode} = ${u.javaColumnFileNameCode};
-   	}
-   	public ${u.column_javatype} get${u.javaColumnGetSetFileNameCode}() {
-		return ${u.javaColumnFileNameCode};
-	}
- </#list>
-	 
-    
-   
+
     
 	
 }

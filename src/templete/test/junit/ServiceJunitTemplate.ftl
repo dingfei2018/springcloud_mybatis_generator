@@ -1,4 +1,9 @@
-package ${p.basePackage}.service.${p.bizPackage};
+<#if (p.bizPackage)?? && p.bizPackage !="">
+	<#assign biz=".${p.bizPackage}"/>
+<#else>
+	<#assign biz=""/>
+</#if>
+package ${p.basePackage}.service${biz};
 
 import java.util.List;
 import javax.annotation.Resource;
@@ -7,8 +12,8 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import ${p.basePackage}.entity.${p.bizPackage}.${p.className};
-import ${p.basePackage}.service.${p.bizPackage}.${p.className}Service;
+import ${p.basePackage}.entity${biz}.${p.className};
+import ${p.basePackage}.service${biz}.${p.className}Service;
 
 
 

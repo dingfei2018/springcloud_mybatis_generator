@@ -1,8 +1,13 @@
-package ${p.basePackage}.service.${p.bizPackage};
+<#if (p.bizPackage)?? && p.bizPackage !="">
+    <#assign biz=".${p.bizPackage}"/>
+<#else>
+    <#assign biz=""/>
+</#if>
+package ${p.basePackage}.service${biz};
 
-import ${p.basePackage}.entity.${p.bizPackage}.${p.className};
+import ${p.basePackage}.entity${biz}.${p.className};
 import BaseMybatisService;
-import ${p.basePackage}.query.${p.bizPackage}.${p.className}Query;
+import ${p.basePackage}.query${biz}.${p.className}Query;
 import PageInfo;
 import java.util.List;
 /**

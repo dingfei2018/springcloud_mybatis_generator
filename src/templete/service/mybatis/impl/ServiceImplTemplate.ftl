@@ -1,14 +1,19 @@
-package ${p.basePackage}.service.${p.bizPackage}.impl;
+<#if (p.bizPackage)?? && p.bizPackage !="">
+	<#assign biz=".${p.bizPackage}"/>
+<#else>
+	<#assign biz=""/>
+</#if>
+package ${p.basePackage}.service${biz}.impl;
 
 import java.util.List;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ${p.basePackage}.service.${p.bizPackage}.${p.className}Service;
-import ${p.basePackage}.dao.${p.bizPackage}.${p.className}Dao;
-import ${p.basePackage}.entity.${p.bizPackage}.${p.className};
-import ${p.basePackage}.query.${p.bizPackage}.${p.className}Query;
+import ${p.basePackage}.service${biz}.${p.className}Service;
+import ${p.basePackage}.dao${biz}.${p.className}Dao;
+import ${p.basePackage}.entity${biz}.${p.className};
+import ${p.basePackage}.query${biz}.${p.className}Query;
 import PageInfo;
 import UuidUtil;
 import com.github.pagehelper.PageHelper;

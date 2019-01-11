@@ -126,10 +126,10 @@ public class CodeFactory {
 						CodeFactory.genAutoCodeByTempleteName(cg, "ControllerTemplate.ftl");
 						
 						log.info("生成jsp:"+entityName);
-						genAutoSpringMvcListJspCode(cfg, code_package_path, entityName, list, pk_type,pkobj);
+						/*genAutoSpringMvcListJspCode(cfg, code_package_path, entityName, list, pk_type,pkobj);
 						genAutoSpringMvcListJspAddCode(cfg, code_package_path, entityName, list, pk_type,pkobj);
 						genAutoSpringMvcJspeditCode(cfg, code_package_path, entityName, list, pk_type,pkobj);
-						genAutoSpringMvcJspViewCode(cfg, code_package_path, entityName, list, pk_type,pkobj);
+						genAutoSpringMvcJspViewCode(cfg, code_package_path, entityName, list, pk_type,pkobj);*/
 					}
 					
 					

@@ -1,4 +1,9 @@
-package ${p.basePackage}.entity.${p.bizPackage};
+<#if (p.bizPackage)?? && p.bizPackage !="">
+    <#assign biz=".${p.bizPackage}"/>
+<#else>
+    <#assign biz=""/>
+</#if>
+package ${p.basePackage}.entity${biz};
 import java.util.Date;
 import java.lang.Integer;
 import java.math.BigDecimal;
@@ -16,6 +21,7 @@ import io.swagger.annotations.ApiModelProperty;
  * 作者：dingfei</br>
  * 时间:${.now}</br>
  */
+@Data
 public class ${p.className} implements java.io.Serializable{
 	private static final long serialVersionUID = 1L;
 <#list p.gci_columns as u>
