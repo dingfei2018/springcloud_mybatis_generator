@@ -119,8 +119,8 @@ public class ${p.className}ServiceImpl implements ${p.className}Service {
 		this.${p.lowerName}dao.deleteAll();
 	}
 
-	public List<${p.className}> findPageListBySQL(${p.className}Query vo) {
-		return this.${p.lowerName}dao.findPageListBySQL(currentPage, pageSize, vo);
+	public List<${p.className}> findListByVo(${p.className}Query vo) {
+		return this.${p.lowerName}dao.findListByVo(vo);
 	}
 
 	public Integer deleteEntryByPrimaryKey(${p.pk_type} id) {

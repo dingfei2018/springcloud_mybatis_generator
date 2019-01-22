@@ -31,8 +31,8 @@ import io.swagger.annotations.ApiOperation;
  * 时间:${.now}</br>
  */
 @RestController
-@RequestMapping("/${biz}/${p.entityPackage}/v1")
-@Api(value = "/${biz}/${p.entityPackage}/v1", tags = "${p.code_name}")
+@RequestMapping("${biz}/${p.entityPackage}/v1")
+@Api(value = "${biz}/${p.entityPackage}/v1", tags = "${p.code_name}")
 public class ${p.className}RestApiController extends BaseMybatisController{
 	
 	private final static Logger log= Logger.getLogger(${p.className}RestApiController.class);

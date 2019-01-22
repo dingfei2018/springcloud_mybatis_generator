@@ -23,48 +23,41 @@
 		  <result column="pageSize" property="pageSize" jdbcType="INTEGER"/>
 	</resultMap>
 
-  <!--
-  	关于varchar类型字符串可能进行查询的Like 语句编写
-  	<if test="vo.typename != null and vo.typename !=''">
-  	    	and typename like CONCAT('%',,'%')
-  	</if>
-   -->
-
-  <!-- 分页数据 -->
-  <select id="findPageListBySQL" resultMap="BaseResultMap" parameterType="${p.basePackage}.query${biz}.${p.className}Query">
-  		select
-  	    <include refid="Base_Column_List" />
-  	     from ${p.table_name} where 1=1
-  	    <!-- 带条件情况，在此处添加逻辑 -->
-  	    <#list p.gci_columns?sort_by("ordinal_position") as u>
-  	    <#if u.column_javatype=="String">
-  	     <if test="vo.${u.javaColumnFileNameCode} != null and vo.${u.javaColumnFileNameCode} != ''" >
-       	 	and ${u.clumn_name} like CONCAT('%',#${"{vo."+u.javaColumnFileNameCode},jdbcType=${u.column_javaMybatintype?upper_case+"}"},'%')
-     	 </if>
-     	<#elseif u.column_javatype=="Long">
-     	<if test="vo.${u.javaColumnFileNameCode} != null and vo.${u.javaColumnFileNameCode} != ''" >
-       	 	and ${u.clumn_name} = #${"{vo."+u.javaColumnFileNameCode},jdbcType=${u.column_javaMybatintype?upper_case+"}"}
-     	 </if>
-     	<#elseif u.column_javatype=="int">
-     	<if test="vo.${u.javaColumnFileNameCode} != null and vo.${u.javaColumnFileNameCode} != ''" >
-       	 	and ${u.clumn_name} = #${"{vo."+u.javaColumnFileNameCode},jdbcType=${u.column_javaMybatintype?upper_case+"}"}
-     	 </if>
-     	 <#elseif u.column_javatype=="long">
-     	<if test="vo.${u.javaColumnFileNameCode} != null and vo.${u.javaColumnFileNameCode} != ''" >
-       	 	and ${u.clumn_name} = #${"{vo."+u.javaColumnFileNameCode},jdbcType=${u.column_javaMybatintype?upper_case+"}"}
-     	 </if>
-  	    <#else>
-      	 <if test="vo.${u.javaColumnFileNameCode} != null" >
-       	 	and ${u.clumn_name} = #${"{vo."+u.javaColumnFileNameCode},jdbcType=${u.column_javaMybatintype?upper_case+"}"}
-     	 </if>
-     	 </#if>
-      	</#list>
-  </select>
-
 	<sql id="Base_Column_List" >
 	    <#list p.gci_columns?sort_by("ordinal_position") as u><#if u.column_key=="PRI">${u.clumn_name}<#else>,${u.clumn_name}</#if></#list>
-	</sql> 
-  
+	</sql>
+		<!-- 查询列表并分页 -->
+	<select id="findListByVo" resultMap="BaseResultMap" parameterType="${p.basePackage}.query${biz}.${p.className}Query">
+	select
+	<include refid="Base_Column_List" />
+	from ${p.table_name} where 1=1
+	<!-- 带条件情况，在此处添加逻辑 -->
+	<#list p.gci_columns?sort_by("ordinal_position") as u>
+	<#if u.column_javatype=="String">
+	<if test="vo.${u.javaColumnFileNameCode} != null and vo.${u.javaColumnFileNameCode} != ''" >
+		and ${u.clumn_name} like CONCAT('%',#${"{vo."+u.javaColumnFileNameCode},jdbcType=${u.column_javaMybatintype?upper_case+"}"},'%')
+	</if>
+	<#elseif u.column_javatype=="Long">
+	<if test="vo.${u.javaColumnFileNameCode} != null and vo.${u.javaColumnFileNameCode} != ''" >
+		and ${u.clumn_name} = #${"{vo."+u.javaColumnFileNameCode},jdbcType=${u.column_javaMybatintype?upper_case+"}"}
+	</if>
+	<#elseif u.column_javatype=="int">
+	<if test="vo.${u.javaColumnFileNameCode} != null and vo.${u.javaColumnFileNameCode} != ''" >
+		and ${u.clumn_name} = #${"{vo."+u.javaColumnFileNameCode},jdbcType=${u.column_javaMybatintype?upper_case+"}"}
+	</if>
+	<#elseif u.column_javatype=="long">
+	<if test="vo.${u.javaColumnFileNameCode} != null and vo.${u.javaColumnFileNameCode} != ''" >
+		and ${u.clumn_name} = #${"{vo."+u.javaColumnFileNameCode},jdbcType=${u.column_javaMybatintype?upper_case+"}"}
+	</if>
+	<#else>
+	<if test="vo.${u.javaColumnFileNameCode} != null" >
+		and ${u.clumn_name} = #${"{vo."+u.javaColumnFileNameCode},jdbcType=${u.column_javaMybatintype?upper_case+"}"}
+	</if>
+	</#if>
+			</#list>
+		</select>
+
+
   <!-- 获取表所有数据 -->    
   <select id="findAll" resultMap="BaseResultMap" parameterType="java.lang.${p.pk_type}" >
     select 

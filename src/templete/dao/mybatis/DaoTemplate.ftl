@@ -18,7 +18,11 @@ import org.apache.ibatis.annotations.Param;
  * 作者：</b>dingfei</br>
  */
 public interface ${p.className}Dao extends BaseMybatisDao<${p.className},${p.pk_type}> {
-	//分页数据
-	List<${p.className}> findPageListBySQL(@Param("vo") ${p.className}Query vo);
+    /**
+    * 查询列表并分页
+    * @param vo
+    * @return List<${p.className}>
+    */
+	List<${p.className}> findListByVo(@Param("vo") ${p.className}Query vo);
 	
 }

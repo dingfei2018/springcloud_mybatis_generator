@@ -14,9 +14,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 public class ${p.className}Dto implements java.io.Serializable{
 	private static final long serialVersionUID = 1L;
 	<#list p.gci_columns as u>
- 	/**
- 	* ${u.column_comment}
- 	*/
  	<#if u.column_javatype == 'java.util.Date' && u.data_type == 'datetime'>
  	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
  	</#if>

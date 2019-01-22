@@ -22,12 +22,10 @@ public class ${p.className}Query implements java.io.Serializable{
  	public static final String ALIAS_${u.javaColumnFileNameCode} = "${u.column_comment}";
  </#list>
 <#list p.gci_columns as u>
- 	/**
- 	* ${u.column_comment}
- 	*/
  	<#if u.column_javatype == 'java.util.Date'>
  	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
  	</#if>
+	@ApiModelProperty(name = "${u.javaColumnFileNameCode}" , value = "${u.column_comment}")
    	private ${u.column_javatype} ${u.javaColumnFileNameCode};
  </#list>
 	

@@ -17,6 +17,10 @@ import java.util.List;
  * 时间:${.now}</br>
  */
 public interface ${p.className}Service extends BaseMybatisService<${p.className},${p.pk_type}> {
-	//分页数据
-	List<${p.className}> findPageListBySQL(${p.className}Query vo);
+    /**
+    * 查询列表并分页
+    * @param vo
+    * @return List<${p.className}>
+    */
+	List<${p.className}> findListByVo(${p.className}Query vo);
 }
