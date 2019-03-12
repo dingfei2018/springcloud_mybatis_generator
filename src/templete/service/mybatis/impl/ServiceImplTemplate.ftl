@@ -123,6 +123,14 @@ public class ${p.className}ServiceImpl implements ${p.className}Service {
 		return this.${p.lowerName}dao.findListByVo(vo);
 	}
 
+	public List<${p.className}> findPageListBySQL(int currentPage, int pageSize,${p.className}Query vo) {
+	return this.${p.lowerName}dao.findPageListBySQL(currentPage, pageSize, vo);
+	}
+
+	public PageInfo findPageInfoBySQL(int currentPage, int pageSize,${p.className}Query vo) {
+	return this.${p.lowerName}dao.findPageInfoBySQL(currentPage, pageSize, vo);
+	}
+
 	public Integer deleteEntryByPrimaryKey(${p.pk_type} id) {
 		return this.${p.lowerName}dao.deleteEntryByPrimaryKey(id);
 	}

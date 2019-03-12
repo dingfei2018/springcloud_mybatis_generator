@@ -57,6 +57,73 @@
 			</#list>
 		</select>
 
+		<!-- 分页数据 -->
+	<select id="findPageListBySQL" resultMap="BaseResultMap" parameterType="${p.basePackage}.query${biz}.${p.className}Query">
+	select
+	<include refid="Base_Column_List" />
+	from ${p.table_name} where 1=1
+	<!-- 带条件情况，在此处添加逻辑 -->
+	<#list p.gci_columns?sort_by("ordinal_position") as u>
+	<#if u.column_javatype=="String">
+	<if test="vo.${u.javaColumnFileNameCode} != null and vo.${u.javaColumnFileNameCode} != ''" >
+		and ${u.clumn_name} like CONCAT('%',#${"{vo."+u.javaColumnFileNameCode},jdbcType=${u.column_javaMybatintype?upper_case+"}"},'%')
+	</if>
+	<#elseif u.column_javatype=="Long">
+	<if test="vo.${u.javaColumnFileNameCode} != null and vo.${u.javaColumnFileNameCode} != ''" >
+		and ${u.clumn_name} = #${"{vo."+u.javaColumnFileNameCode},jdbcType=${u.column_javaMybatintype?upper_case+"}"}
+	</if>
+	<#elseif u.column_javatype=="int">
+	<if test="vo.${u.javaColumnFileNameCode} != null and vo.${u.javaColumnFileNameCode} != ''" >
+		and ${u.clumn_name} = #${"{vo."+u.javaColumnFileNameCode},jdbcType=${u.column_javaMybatintype?upper_case+"}"}
+	</if>
+	<#elseif u.column_javatype=="long">
+	<if test="vo.${u.javaColumnFileNameCode} != null and vo.${u.javaColumnFileNameCode} != ''" >
+		and ${u.clumn_name} = #${"{vo."+u.javaColumnFileNameCode},jdbcType=${u.column_javaMybatintype?upper_case+"}"}
+	</if>
+	<#else>
+	<if test="vo.${u.javaColumnFileNameCode} != null" >
+		and ${u.clumn_name} = #${"{vo."+u.javaColumnFileNameCode},jdbcType=${u.column_javaMybatintype?upper_case+"}"}
+	</if>
+	</#if>
+			</#list>
+
+	<if test="currentPage==1">
+	limit 0, #${"{pageSize"},jdbcType=INTEGER}
+	</if>
+	<if test="currentPage&gt;1">
+	limit ${"$"}${"{(currentPage-1)*pageSize"}},${"$"}${"{pageSize"}}
+	</if>
+			</select>
+			<!-- 分页属性数据 -->
+	<select id="findPageInfoBySQL" resultMap="PageInfoResultMap" parameterType="${p.basePackage}.query${biz}.${p.className}Query">
+	select
+	count(${p.pk_name}) as totalCount,#${"{pageSize"},jdbcType=INTEGER} as pageSize,#${"{currentPage"},jdbcType=INTEGER} as currentPage
+	from ${p.table_name} where 1=1
+	<!-- 带条件情况，在此处添加逻辑 -->
+	<#list p.gci_columns?sort_by("ordinal_position") as u>
+	<#if u.column_javatype=="String">
+	<if test="vo.${u.javaColumnFileNameCode} != null and vo.${u.javaColumnFileNameCode} != ''" >
+		and ${u.clumn_name} like CONCAT('%',#${"{vo."+u.javaColumnFileNameCode},jdbcType=${u.column_javaMybatintype?upper_case+"}"},'%')
+	</if>
+	<#elseif u.column_javatype=="Long">
+	<if test="vo.${u.javaColumnFileNameCode} != null and vo.${u.javaColumnFileNameCode} != ''" >
+		and ${u.clumn_name} = #${"{vo."+u.javaColumnFileNameCode},jdbcType=${u.column_javaMybatintype?upper_case+"}"}
+	</if>
+	<#elseif u.column_javatype=="int">
+	<if test="vo.${u.javaColumnFileNameCode} != null and vo.${u.javaColumnFileNameCode} != ''" >
+		and ${u.clumn_name} = #${"{vo."+u.javaColumnFileNameCode},jdbcType=${u.column_javaMybatintype?upper_case+"}"}
+	</if>
+	<#elseif u.column_javatype=="long">
+	<if test="vo.${u.javaColumnFileNameCode} != null and vo.${u.javaColumnFileNameCode} != ''" >
+		and ${u.clumn_name} = #${"{vo."+u.javaColumnFileNameCode},jdbcType=${u.column_javaMybatintype?upper_case+"}"}
+	</if>
+	<#else>
+	<if test="vo.${u.javaColumnFileNameCode} != null" >
+		and ${u.clumn_name} = #${"{vo."+u.javaColumnFileNameCode},jdbcType=${u.column_javaMybatintype?upper_case+"}"}
+	</if>
+	</#if>
+			</#list>
+			</select>
 
   <!-- 获取表所有数据 -->    
   <select id="findAll" resultMap="BaseResultMap" parameterType="java.lang.${p.pk_type}" >

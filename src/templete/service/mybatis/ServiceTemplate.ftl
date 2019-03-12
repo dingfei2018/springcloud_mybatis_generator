@@ -23,4 +23,21 @@ public interface ${p.className}Service extends BaseMybatisService<${p.className}
     * @return List<${p.className}>
     */
 	List<${p.className}> findListByVo(${p.className}Query vo);
+
+    /**
+    * 分页数据
+    * @param currentPage
+    * @param pageSize
+    * @param vo
+    * @return List<${p.className}>
+    */
+    List<${p.className}> findPageListBySQL(int currentPage, int pageSize,${p.className}Query vo);
+    /**
+    * 分页属性
+    * @param currentPage
+    * @param pageSize
+    * @param vo
+    * @return PageInfo
+    */
+    PageInfo findPageInfoBySQL(int currentPage, int pageSize,${p.className}Query vo);
 }

@@ -24,5 +24,22 @@ public interface ${p.className}Dao extends BaseMybatisDao<${p.className},${p.pk_
     * @return List<${p.className}>
     */
 	List<${p.className}> findListByVo(@Param("vo") ${p.className}Query vo);
+
+    /**
+    * 分页数据
+    * @param currentPage
+    * @param pageSize
+    * @param vo
+    * @return List<${p.className}>
+    */
+    List<${p.className}> findPageListBySQL( @Param("currentPage") int currentPage, @Param("pageSize") int pageSize, @Param("vo") ${p.className}Query vo);
+    /**
+    * 分页属性
+    * @param currentPage
+    * @param pageSize
+    * @param vo
+    * @return PageInfo
+    */
+    PageInfo findPageInfoBySQL(@Param("currentPage") int currentPage, @Param("pageSize") int pageSize, @Param("vo") ${p.className}Query vo);
 	
 }
